@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GITHUB CHANGELOG GENERATOR BY A0ZHAR</title>
+  <link href="bootstrap/bootstrap.min.css" rel="stylesheet" />
+</head>
+
+<body>
+  <div class="container mx-auto text-center" id="mainform">
+      <!-- ALERTS ARE SHOWN IN THIS CONTAINER -->
+  </div>
+  
+  <!-- SITE CONTENT HERE -->
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="form-container p-3">
+          <h2 class="text-center mb-4">GitHub Information</h2>
+          <div class="mb-3">
+            <label for="username" class="form-label">Account Username</label>
+            <input type="text" class="form-control" id="username" required>
+          </div>
+          <div class="mb-3">
+            <label for="repoName" class="form-label">Repository name</label>
+            <input type="text" class="form-control" id="repoName" required>
+          </div>
+          <button id="userinfo" class="btn btn-info btn-block">Create Changelog</button>
+        </div>
+      </div>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col-md-6 mt-4">
+        <h2 class="text-center">Output:</h2>
+        <div id="commitsList" class="bg-light p-3">
+          <!-- CHANGE LOG MARKDOWN HERE -->
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="bootstrap/bootstrap.min.js"></script>
+  <script src="generator.js"></script>
+</body>
+
+</html>
