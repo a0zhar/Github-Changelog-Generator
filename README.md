@@ -1,5 +1,7 @@
 # Github Changelog Generator
-Easy to use, Fully Web-based, Github Markdown style Changelog Generator. All it needs is the Account Username, and the Repository name, and it will generate changelog for that repository looking like:
+This is a super easy-to-use, user-friendly, nice looking, web-based github (markdown style) changelog generator. All that it requires is **The Github Account Username** and **The Repository Name**... Once entered, all that is left to do is to press the button, then tada!!!
+
+The Generated content looks like this:
 ```md
 ### Patches made on <YYYY-MM-DD>
 - <Commit Title>
