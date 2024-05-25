@@ -2,26 +2,48 @@
 function generate_markdown_changelog(commitData) {
   let built_markdown = "";
 
-  // If the commit passed only has title, and no additional data,
-  // then we print the title only, and return early
+  // If the commit passed only has a title, and no additional data,
+  // then we print the title only and return early
   if (commitData.length == 1) {
     return `- ${commitData[0]}<br>`;
   }
 
-  // If the commit contains additional changes
-  if (commitData.length > 1) {
-    // Then we print them as a list
+  // Check if the commit message starts with "Update <filename>.<extension>"
+  const firstLine = commitData[0].trim();
+  const updateRegex = /^Update\s+([^\s]+)\.([^\s]+)$/;
+  const updateMatch = firstLine.match(updateRegex);
+
+  if (updateMatch) {
+    const filename = updateMatch[1] + '.' + updateMatch[2];
+    built_markdown += `- Changes Made for ${filename}<br>`;
+
     commitData.slice(1).forEach((change) => {
       if (change.trim() !== "") {
         // Prevent duplicate lines from being added
         if (!built_markdown.includes(change)) {
-          // Check if the additional data dont starts with -
-          // if so add it
-          if (!change.startsWith("-")) change = `- ${change}`;
-          built_markdown += `&nbsp;&nbsp;${change}<br>`;
+          // Check if the additional data doesn't start with "-"
+          // if so, add it
+          if (!change.includes("-")) change = `- ${change}`;
+            built_markdown += `&nbsp;&nbsp;${change}<br>`;
         }
       }
     });
+  } else {
+    // If the commit contains additional changes
+    if (commitData.length > 1) {
+      // Then we print them as a list
+      commitData.slice(1).forEach((change) => {
+        if (change.trim() !== "") {
+          // Prevent duplicate lines from being added
+          if (!built_markdown.includes(change)) {
+            // Check if the additional data doesn't start with "-"
+            // if so, add it
+          if (!change.includes("-")) change = `- ${change}`;
+            built_markdown += `&nbsp;${change}<br>`;
+          }
+        }
+      });
+    }
   }
 
   return built_markdown;
@@ -69,7 +91,7 @@ document.getElementById("userinfo").addEventListener("click", function () {
             // Close the previous "Changes on <date>" section
             changelog += "<br>";
           }
-          // Start a new "Changes on <date>" section
+          // Start a new "Patches made on <date>" section
           changelog += `### Patches made on (${commitDate})<br><br>`;
           current_commit_date = commitDate;
         }
