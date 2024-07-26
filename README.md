@@ -1,4 +1,4 @@
-# Introduction
+# A Site for Easily Generating Github Repository Changelogs 
 I looked everywhere for an easy-to-use tool to create changelogs from GitHub commits, but couldn't find a simple website solution. So, I built one myself! With this tool, there's no need to install software or sign up for anything—**no hassle at all**. I hope you find it useful!
 
 ## How to Use It
