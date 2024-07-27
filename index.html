@@ -1,47 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>GITHUB CHANGELOG GENERATOR BY A0ZHAR</title>
-  <link href="bootstrap/bootstrap.min.css" rel="stylesheet" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!-- Prevent Cache of Site Files (To ensure latest version of files always load) -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <!-- CSS Stylesheets used by the Page -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Page Tab Title -->
+    <title>Generate GitHub Repository Changelogs</title>
 </head>
 
-<body>
-  <div class="container mx-auto text-center" id="mainform">
-      <!-- ALERTS ARE SHOWN IN THIS CONTAINER -->
-  </div>
-  
-  <!-- SITE CONTENT HERE -->
-  <div class="container">
-    <div class="row justify-content-center">
-      <div class="col-md-6">
-        <div class="form-container p-3">
-          <h2 class="text-center mb-4">GitHub Information</h2>
-          <div class="mb-3">
-            <label for="username" class="form-label">Account Username</label>
-            <input type="text" class="form-control" id="username" required>
-          </div>
-          <div class="mb-3">
-            <label for="repoName" class="form-label">Repository name</label>
-            <input type="text" class="form-control" id="repoName" required>
-          </div>
-          <button id="userinfo" class="btn btn-info btn-block">Create Changelog</button>
+<body class="bg-dark">
+    <div class="container mt-5 text-center">
+        <!-- Title and Leading Text -->
+        <h1 class="mb-3 text-white">D0PAM1NE</h1>
+        <h4 class="mb-4 lead text-white">An easy-to-use site for generating changelogs for your GitHub repository</h4>
+        
+        <!-- Container to hold Alerts -->
+        <div id="mainform" class="text-center"></div>
+        
+        <!-- Account Information Form -->
+        <div class="form-container bg-white">
+            <h2 class="text-center mb-4">GitHub User & Repo Details</h2>
+            <div class="mb-3 text-start">
+                <label for="username" class="form-label">Account Username</label>
+                <input type="text" class="form-control" id="username" placeholder="..." required/>
+            </div>
+            <div class="mb-3 text-start">
+                <label for="repoName" class="form-label">Repository Name</label>
+                <input type="text" class="form-control" id="repoName" placeholder="..." required/>
+            </div>
+            <button class="btn btn-success" id="userinfo">Generate Changelog</button>
         </div>
-      </div>
+
+        <h2 class="text-center mt-5 text-white">Changelog Output:</h2>
+        <!-- Area where the changelog will be printed -->
+        <div id="commitsList" class="output-container"></div>
     </div>
-    <div class="row justify-content-center">
-      <div class="col-md-6 mt-4">
-        <h2 class="text-center">Output:</h2>
-        <div id="commitsList" class="bg-light p-3">
-          <!-- CHANGE LOG MARKDOWN HERE -->
-        </div>
-      </div>
-    </div>
-  </div>
-  <script src="bootstrap/bootstrap.min.js"></script>
-  <script src="generator.js"></script>
+
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/generator.js"></script>
 </body>
 
 </html>
