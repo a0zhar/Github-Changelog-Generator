@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Epinephrine Web-Tool's | Github Repository Layout/Structure Printer</title>
+  <link rel="stylesheet" href="theme.colors.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <p style="text-align: center;">
+    <h1 class="h1Custom">Epinephrine Tools</h1>
+    <span class="subtitle">A Web Tool to Get the Layout of a GitHub Repository</span>
+    <span class="footer">Coded By A0ZHAR (aka KHALID)</span>
+  </p>
+  <hr>
+  <form id="repo-form">
+    <label for="username">GitHub Username:</label>
+    <input type="text" id="username" name="username" required>
+    <br>
+    <label for="repository">Repository Name:</label>
+    <input type="text" id="repository" name="repository" required>
+    <br>
+    <button type="submit">Fetch Repository Structure</button>
+  </form>
+
+  <div id="repo-structure"></div>
+
+  <script src="github-repo-dumper.js"/></script>
+</body>
+
+</html>
