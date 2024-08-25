@@ -1,0 +1,47 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  max-width: 100vw;
+  max-height: 100vh;
+}
+
+body {
+  width: 100vw;
+  height: 100vh;
+  font-family: Arial, sans-serif;
+  background: #f0f0f0;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.h1Custom {
+  font-size: 4rem;
+  background: -webkit-linear-gradient(45deg, #ff007f, #7f00ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin: 0;
+  padding: 0;
+}
+
+.subtitle {
+  font-size: 1.5rem;
+  color: #333;
+  margin: 4px 0;
+}
+
+.footer {
+  font-size: 1.3rem;
+  color: #555;
+  margin: 4px 0;
+}
+
+.directory {
+  font-weight: bold;
+  margin-left: 20px;
+}
+
+.file {
+  margin-left: 40px;
+}
