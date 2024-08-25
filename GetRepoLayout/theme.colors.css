@@ -1,0 +1,64 @@
+/** 
+* Im Using Bootstrap as inspiration for these theme related
+* variables, containing the Color Palettes
+**/
+
+:root {
+    /* Primary Colors */
+    --primary: rgb(0, 123, 255);          /* Bootstrap Blue */
+    --secondary: rgb(108, 117, 125);      /* Bootstrap Gray */
+    --success: rgb(40, 167, 69);          /* Bootstrap Green */
+    --danger: rgb(220, 53, 69);           /* Bootstrap Red */
+    --warning: rgb(255, 193, 7);          /* Bootstrap Yellow */
+    --info: rgb(23, 162, 184);            /* Bootstrap Cyan */
+    --light: rgb(248, 249, 250);          /* Bootstrap Light Gray */
+    --dark: rgb(52, 58, 64);              /* Bootstrap Dark Gray */
+
+    /* Text Colors */
+    --text-primary: var(--dark);           /* Dark text for high contrast */
+    --text-secondary: var(--secondary);    /* Gray text */
+    --text-success: var(--success);        /* Green text */
+    --text-danger: var(--danger);          /* Red text */
+    --text-warning: var(--warning);        /* Yellow text */
+    --text-info: var(--info);              /* Cyan text */
+    --text-light: var(--light);            /* Light text */
+    --text-dark: var(--dark);              /* Dark text */
+
+    /* Background Colors */
+    --bg-primary: var(--primary);          /* Primary color background */
+    --bg-secondary: var(--secondary);      /* Secondary color background */
+    --bg-success: var(--success);          /* Success color background */
+    --bg-danger: var(--danger);            /* Danger color background */
+    --bg-warning: var(--warning);          /* Warning color background */
+    --bg-info: var(--info);                /* Info color background */
+    --bg-light: var(--light);              /* Light background */
+    --bg-dark: var(--dark);                /* Dark background */
+                                                                             
+    /* Border Colors */
+    --border-primary: var(--primary);      /* Primary color border */
+    --border-secondary: var(--secondary);  /* Secondary color border */
+    --border-success: var(--success);      /* Success color border */
+    --border-danger: var(--danger);        /* Danger color border */
+    --border-warning: var(--warning);      /* Warning color border */
+    --border-info: var(--info);            /* Info color border */
+    --border-light: var(--light);          /* Light color border */
+    --border-dark: var(--dark);            /* Dark color border */
+
+    /* Button Colors */
+    --btn-primary-bg: var(--primary);      /* Primary button background */
+    --btn-primary-fg: var(--text-light);   /* Primary button text */
+    --btn-secondary-bg: var(--secondary);  /* Secondary button background */
+    --btn-secondary-fg: var(--text-light); /* Secondary button text */
+    --btn-success-bg: var(--success);      /* Success button background */
+    --btn-success-fg: var(--text-light);   /* Success button text */
+    --btn-danger-bg: var(--danger);        /* Danger button background */
+    --btn-danger-fg: var(--text-light);    /* Danger button text */
+    --btn-warning-bg: var(--warning);      /* Warning button background */
+    --btn-warning-fg: var(--text-dark);    /* Warning button text */
+    --btn-info-bg: var(--info);            /* Info button background */
+    --btn-info-fg: var(--text-light);      /* Info button text */
+    --btn-light-bg: var(--light);          /* Light button background */
+    --btn-light-fg: var(--text-dark);      /* Light button text */
+    --btn-dark-bg: var(--dark);            /* Dark button background */
+    --btn-dark-fg: var(--text-light);      /* Dark button text */
+}
