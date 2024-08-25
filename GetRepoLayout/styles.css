@@ -1,4 +1,5 @@
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
   max-width: 100vw;
@@ -44,4 +45,46 @@ body {
 
 .file {
   margin-left: 40px;
+}
+#repo-form {
+  background-color: var(--bg-dark);
+  color: var(--text-light);
+  border: 1px solid var(--border-dark);
+  padding: 1rem;
+  border-radius: 0.25rem;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 300px;
+  margin: auto;
+}
+
+#repo-form label {
+  color: var(--text-light);
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+#repo-form input {
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 1px solid var(--border-secondary);
+  border-radius: 0.25rem;
+  background-color: var(--bg-dark);
+  color: var(--text-light);
+  width: calc(100% - 1rem);
+  margin-bottom: 1rem;
+}
+
+#repo-form button {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  background-color: var(--btn-primary-bg);
+  color: var(--btn-primary-fg);
+  border: none;
+  border-radius: 0.25rem;
+  cursor: pointer;
+}
+
+#repo-form button:hover {
+  background-color: var(--btn-primary-bg);
+  opacity: 0.9;
 }
