@@ -1,91 +1,98 @@
-// Wait until the Web Page has fully loaded, which occures once the DOM content has fully loaded.
-// Once this event occures, we continue with the code/implementation
 document.addEventListener("DOMContentLoaded", function() {
-  // Add a submit event listener to the form with the ID "repo-form"
-  document.getElementById("repo-form").addEventListener("submit", async function(event) {
-    // Prevent the default form submission behavior
-    event.preventDefault();
+  // Attach a submit event listener to the form after the page has fully loaded
+  document.getElementById("repo-form").addEventListener("submit", handleFormSubmit);
 
-    // Get the values from the input fields for GitHub username and repository name
-    let owner = document.getElementById("username").value;
-    let repo  = document.getElementById("repository").value;
+  // Handles form submission, validates inputs, fetches and displays the repo structure
+  function handleFormSubmit(event) {
+    event.preventDefault(); // Prevent form from submitting the usual way
 
-    // Check if both fields have been filled out
+    let owner = document.getElementById("username").value; // Get GitHub username
+    let repo = document.getElementById("repository").value; // Get repository name
+
+    // Check if both input fields are filled
     if (!owner || !repo) {
-      // Alert the user to enter both fields if either is missing
       alert("Please enter both GitHub username and repository name.");
-      return; // Exit the function early
+      return; // Stop execution if either field is empty
     }
 
-    // Attempt, to obtain the github repository structure, before formatting
-    // it into HTML format, then adding it to the html element container, and
-    // if an error occures, we log it first to console, then we display it in
-    // the html element acting as output container
-    try {
-      // Fetch the repository structure from the GitHub API, then we format
-      // the resulted data of the structure into HTML
-      let contents           = await fetchRepoStructure(owner, repo);
-      let formattedStructure = await formatStructure(owner, repo, contents);
-
-      // Insert the formatted HTML version of the Github Repository Structure,
-      // into the html element acting as the output container, that has the id
-      // attribute value "repo-structure".
-      document.getElementById("repo-structure").innerHTML = formattedStructure;
-    } catch (error) {
-      // Log the error to the console
-      console.error("Error fetching repository structure:", error);
-
-      // Display an error message in the "repo-structure" div
-      document.getElementById("repo-structure").innerHTML 
-        = "Error fetching repository structure.";
-    }
-  });
-
-  // Function to fetch the github repository contents from the GitHub API
-  async function fetchRepoStructure(owner, repo, path = "") {
-    // Construct the URL to fetch repository contents
-    let url = `https://api.github.com/repos/${owner}/${repo}/contents${path}`;
-
-    // Fetch the contents from the URL
-    let response = await fetch(url);
-
-    // Check if the response is successful, if not we throw an error that
-    // indicates that an error occured
-    if (!response.ok) 
-      throw new Error(`Failed to fetch contents from ${url}`);
-    
-
-    // Return the JSON response
-    return response.json();
+    // Fetch and format the repository structure
+    fetchRepoStructure(owner, repo, "", function(error, contents) {
+      if (error) {
+        handleError(error); // Handle any errors that occur during the process
+      } else {
+        formatStructure(owner, repo, contents, "", 0, function(formattedStructure) {
+          // Display the formatted repository structure on the page
+          displayStructure(formattedStructure);
+        });
+      }
+    });
   }
 
-  // Function to format the repository structure into HTML
-  async function formatStructure(owner, repo, contents, path = "") {
-    let result = ""; // Initialize an empty string to accumulate the result
+  // Fetch the contents of a GitHub repository from the GitHub API
+  function fetchRepoStructure(owner, repo, path = "", callback) {
+    let url = `https://api.github.com/repos/${owner}/${repo}/contents${path}`; // API URL
+    let xhr = new XMLHttpRequest(); // Create a new XMLHttpRequest object
 
-    // Iterate through each item in the contents
-    for (let item of contents) {
-      if (item.type === "dir") {
-        // Append the directory name to the result
-        result += `<div class="directory">${path}${item.name}/</div>`;
+    // Configure the request
+    xhr.open("GET", url, true);
 
-        try {
-          // Fetch the contents of the subdirectory
-          const subContents = await fetchRepoStructure(owner, repo, `${path}${item.name}/`);
-
-          // Recursively format the contents of the subdirectory
-          result += await formatStructure(owner, repo, subContents, `${path}${item.name}/`);
-        } catch (error) {
-          // Log any errors encountered while fetching subdirectory contents
-          console.error(`Error fetching contents for ${path}${item.name}/:`, error);
+    // Set up a function to handle the response data
+    xhr.onreadystatechange = function() {
+      if (xhr.readyState === 4) { // Request is complete
+        if (xhr.status === 200) { // Request was successful
+          callback(null, JSON.parse(xhr.responseText)); // Parse and return the JSON response
+        } else {
+          callback(new Error(`Failed to fetch contents from ${url}`)); // Pass error to callback
         }
-      } else if (item.type === "file") {
-        // Append the file name to the result
-        result += `<div class="file">${path}${item.name}</div>`;
       }
-    }
+    };
 
-    // Return the accumulated HTML result
-    return result;
+    xhr.send(); // Send the request
+  }
+
+  // Recursively format the repository structure as a markdown-style list
+  function formatStructure(owner, repo, contents, path = "", level = 0, callback) {
+    let result = ""; // Initialize the result string
+    let indentation = "   ".repeat(level); // Indentation for nested items
+
+    let remaining = contents.length; // Track how many items are left to process
+    if (remaining === 0) callback(result); // If no contents, return immediately
+
+    // Iterate over each item in the repository contents
+    contents.forEach(function(item) {
+      if (item.type === "dir") {
+        // If the item is a directory, add it to the result with a trailing slash
+        result += `${indentation}- ${item.name}/\n`;
+
+        // Fetch and format the contents of the directory recursively
+        fetchRepoStructure(owner, repo, `${path}${item.name}/`, function(error, subContents) {
+          if (error) {
+            console.error(`Error fetching contents for ${path}${item.name}/:`, error); // Log any errors
+          } else {
+            formatStructure(owner, repo, subContents, `${path}${item.name}/`, level + 1, function(subResult) {
+              result += subResult; // Add the subdirectory structure to the result
+              remaining--;
+              if (remaining === 0) callback(result); // Call the callback when done
+            });
+          }
+        });
+      } else if (item.type === "file") {
+        // If the item is a file, add it to the result without a trailing slash
+        result += `${indentation}- ${item.name}\n`;
+        remaining--;
+        if (remaining === 0) callback(result); // Call the callback when done
+      }
+    });
+  }
+
+  // Display the formatted structure in the output container
+  function displayStructure(structure) {
+    document.getElementById("repo-structure").innerHTML = structure;
+  }
+
+  // Handle errors by logging them and displaying a message on the page
+  function handleError(error) {
+    console.error("Error fetching repository structure:", error); // Log the error
+    document.getElementById("repo-structure").innerHTML = "Error fetching repository structure."; // Display error message
   }
 });
